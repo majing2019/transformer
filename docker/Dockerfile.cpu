@@ -1,0 +1,91 @@
+FROM ubuntu:16.04
+
+# Supress warnings about missing front-end. As recommended at:
+# http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Essentials: developer tools, build tools, OpenBLAS
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils git curl vim unzip openssh-client wget \
+    build-essential cmake \
+    libopenblas-dev 
+
+RUN apt-get update && \
+    apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    unzip \
+    yasm \
+    pkg-config \
+    curl \
+    tar \
+    vim
+
+RUN apt-get install -y \
+    libswscale-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev \
+    libjasper-dev libavformat-dev libpq-dev libxine2-dev libglew-dev \
+    libtiff5-dev zlib1g-dev libjpeg-dev libpng12-dev libjasper-dev \
+    libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev \
+	libswscale-dev libeigen3-dev libtbb-dev libgtk2.0-dev libsqlite3-dev
+
+## Cleanup
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz --no-check-certificate
+RUN tar -xvf Python-3.6.3.tar.xz && cd Python-3.6.3 \
+    && ./configure && make && make install \
+    && cd ../ && rm Python-3.6.3.tar.xz && rm -rf Python-3.6.3
+
+# Pillow and it's dependencies
+RUN apt-get install -y --no-install-recommends libjpeg-dev zlib1g-dev && \
+    pip3 --no-cache-dir install Pillow
+
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
+
+# Science libraries and other common packages
+RUN pip3 --no-cache-dir install \
+    numpy scipy sklearn scikit-image pandas matplotlib Cython requests sqlalchemy jieba nltk
+
+#
+# Jupyter Notebook
+#
+# Allow access from outside the container, and skip trying to open a browser.
+# NOTE: disable authentication token for convenience. DON'T DO THIS ON A PUBLIC SERVER.
+RUN pip3 --no-cache-dir install jupyter && \
+    mkdir /root/.jupyter && \
+    echo "c.NotebookApp.ip = '*'" \
+         "\nc.NotebookApp.open_browser = False" \
+         "\nc.NotebookApp.token = ''" \
+         > /root/.jupyter/jupyter_notebook_config.py
+EXPOSE 7000
+
+RUN pip3 install --no-cache-dir --upgrade tensorflow==1.10.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# Expose port for TensorBoard
+EXPOSE 6006
+
+#
+# Java
+#
+# Install JDK (Java Development Kit), which includes JRE (Java Runtime
+# Environment). Or, if you just want to run Java apps, you can install
+# JRE only using: apt install default-jre
+RUN apt-get clean all
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends default-jdk
+
+#
+# Keras 2.1.5
+#
+RUN pip3 install --no-cache-dir --upgrade h5py pydot_ng keras
+
+ENV LANG C.UTF-8
+
+WORKDIR "/home"
+RUN git clone https://github.com/majing2019/transformer.git
+
+WORKDIR "/home/transformer"
+CMD ["/bin/bash"]
