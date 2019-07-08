@@ -62,7 +62,7 @@ RUN pip3 --no-cache-dir install jupyter && \
          > /root/.jupyter/jupyter_notebook_config.py
 EXPOSE 7000
 
-RUN pip3 install --no-cache-dir --upgrade tensorflow==1.10.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip3 install --no-cache-dir --upgrade tensorflow -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # Expose port for TensorBoard
 EXPOSE 6006
