@@ -1,2 +1,6 @@
 .history
 transformer.code-workspace
+conda-env
+test
+eval
+__pycache__

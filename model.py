@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-# /usr/bin/python3
-'''
-Feb. 2019 by kyubyong park.
-kbpark.linguist@gmail.com.
-https://www.github.com/kyubyong/transformer
 
-Transformer network
-'''
 import tensorflow as tf
 
 from data_load import load_vocab
