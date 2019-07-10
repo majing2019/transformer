@@ -75,7 +75,7 @@ with tf.Session() as sess:
             hypotheses = get_hypotheses(num_eval_batches, num_eval_samples, sess, y_hat, m.idx2token)
 
             logging.info("# write results")
-            model_output = "iwslt2016_E%02dL%.2f" % (epoch, _loss)
+            model_output = "en2zh_E%02dL%.2f" % (epoch, _loss)
             if not os.path.exists(hp.evaldir): os.makedirs(hp.evaldir)
             translation = os.path.join(hp.evaldir, model_output)
             with open(translation, 'w') as fout:

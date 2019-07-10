@@ -24,8 +24,8 @@ class Hparams:
                         help="vocabulary file path")
 
     # training scheme
-    parser.add_argument('--batch_size', default=128, type=int)
-    parser.add_argument('--eval_batch_size', default=128, type=int)
+    parser.add_argument('--batch_size', default=64, type=int)
+    parser.add_argument('--eval_batch_size', default=32, type=int)
 
     parser.add_argument('--lr', default=0.0003, type=float, help="learning rate")
     parser.add_argument('--warmup_steps', default=4000, type=int)

@@ -4,3 +4,4 @@ conda-env
 test
 eval
 __pycache__
+log
