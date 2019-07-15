@@ -76,9 +76,9 @@ _i, KW^K_i, VW^V_i)"/>，其中<img src="http://latex.codecogs.com/gif.latex?W^Q
 - encoder层：自注意力，Q、K、V是上一层encoder的输出，每一层encoder的每一个位置都可以和前面层的所有位置的向量产生交互。
 - decoder层：在self-attentino基础上使用了masking。
 
-#### 在每个位置上的前向网络
+#### 前向网络
 
-在encoder和decoder输出的每一个位置上进行如下计算：
+在encoder和decoder输出上进行如下计算：
 <img src="http://latex.codecogs.com/gif.latex?FFN(x) = max(0, xW_1 + b_1)W_2 + b_2"/>
 
 对于同一层的不同位置，参数是共享的；不同层间参数不共享。
