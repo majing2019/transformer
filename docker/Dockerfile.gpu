@@ -86,6 +86,8 @@ ENV LANG C.UTF-8
 
 WORKDIR "/home"
 RUN git clone https://github.com/majing2019/transformer.git
+COPY ckpt /home/transformer/ckpt
+COPY TED_data /home/transformer/TED_data
 
 WORKDIR "/home/transformer"
 CMD ["/bin/bash"]

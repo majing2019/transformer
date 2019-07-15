@@ -5,13 +5,13 @@
 
 ### docker cpu镜像
 
-- docker pull majing/tensorflow-1.10.0-cpu-transformer:v1
-- docker run -i -t -p 7000:7000 --rm majing/tensorflow-1.10.0-cpu-transformer:v1
+- docker pull majing/tensorflow-1.10.0-cpu-transformer:v2
+- docker run -i -t -p 7000:7000 --rm majing/tensorflow-1.10.0-cpu-transformer:v2
 
 ### docker gpu镜像
 
-- docker pull majing/tensorflow-1.10.0-gpu-transformer:v1
-- docker run -i -t -p 7000:7000 --rm majing/tensorflow-1.10.0-gpu-transformer:v1
+- docker pull majing/tensorflow-1.10.0-gpu-transformer:v2
+- docker run -i -t -p 7000:7000 --rm majing/tensorflow-1.10.0-gpu-transformer:v2
 
 ### conda环境配置
 
