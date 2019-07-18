@@ -6,3 +6,4 @@ eval
 __pycache__
 log
 .ipynb_checkpoints
+.vscode
